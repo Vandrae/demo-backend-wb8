@@ -19,7 +19,8 @@ public class InternshipController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Internship>> getAllInternships() {
+    public ResponseEntity<List<Internship>> getAllInternships(@RequestParam(required = false) String location) {
+        System.out.println(location);
         List<Internship> internships = internshipService.getAllInternships();
         return ResponseEntity.ok(internships);
     }
