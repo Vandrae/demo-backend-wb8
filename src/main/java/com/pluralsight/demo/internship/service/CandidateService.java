@@ -2,13 +2,19 @@ package com.pluralsight.demo.internship.service;
 
 import com.pluralsight.demo.internship.model.Candidate;
 import com.pluralsight.demo.internship.repository.CandidateRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Service
 public class CandidateService {
+
+    @Value("${candidates.visible-by-default}")
+    private boolean visibleByDefault;
 
     private final CandidateRepository candidateRepository;
 
@@ -27,6 +33,8 @@ public class CandidateService {
     }
 
     public Candidate createCandidate(Candidate candidate) {
+        candidate.setRegisteredAt(LocalDateTime.now());
+        candidate.setVisible(visibleByDefault);
         return candidateRepository.save(candidate);
     }
 
